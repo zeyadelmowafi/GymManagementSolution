@@ -1,0 +1,3 @@
+@model IEnumerable<GymManagementSolution.BLL.ViewModels.MemberViewModel>
+@{ ViewData["Title"] = "Members"; }
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h1>Members</h1><p class="text-muted">Gym member directory.</p></div><a asp-action="Create" class="btn btn-primary">Add member</a></div><div class="card shadow-sm"><div class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead><tbody>@foreach(var m in Model){<tr><td><strong>@m.Name</strong></td><td>@m.Email</td><td>@m.Phone</td><td>@m.Address</td></tr>}</tbody></table></div></div>

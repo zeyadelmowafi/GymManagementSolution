@@ -1,0 +1,3 @@
+@model SessionViewModel
+@{ ViewData["Title"] = "Delete session"; }
+<div class="page-heading"><div><span class="eyebrow">CONFIRM ACTION</span><h1>Delete session?</h1></div></div><div class="alert alert-warning">This permanently removes the session and its bookings. This action cannot be undone.</div><div class="form-card"><h2>@Model.CategoryName</h2><p>@Model.Description</p><p>@Model.DateDisplay · @Model.TimeRangeDisplay · @Model.TrainerName</p><form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Id"/><button class="btn btn-danger">Delete permanently</button> <a asp-action="Index" class="btn btn-outline-secondary">Back to sessions</a></form></div>

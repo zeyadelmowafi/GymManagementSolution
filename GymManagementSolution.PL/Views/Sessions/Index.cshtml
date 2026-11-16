@@ -1,0 +1,18 @@
+@model IReadOnlyList<SessionViewModel>
+@{ ViewData["Title"] = "Sessions Schedule"; }
+<div class="page-heading"><div><span class="eyebrow">TRAINING SCHEDULE</span><h1>Sessions</h1><p>Find your next class and keep the schedule moving.</p></div><a asp-action="Create" class="btn btn-primary">+ Create session</a></div>
+@if (TempData["SuccessMessage"] is string ok) { <div class="alert alert-success">@ok</div> }
+@if (TempData["ErrorMessage"] is string err) { <div class="alert alert-danger">@err</div> }
+<div class="row g-4">
+@foreach (var session in Model)
+{
+    var color = session.Status == "Upcoming" ? "primary" : session.Status == "Ongoing" ? "success" : "secondary";
+    <div class="col-md-6 col-xl-4"><article class="session-card shadow-sm">
+        <div class="session-card-header bg-@color"><div><span class="small text-uppercase opacity-75">@session.CategoryName</span><h2 class="h5 mt-1 mb-0">@session.Description</h2></div><span class="badge rounded-pill text-bg-light">@session.Status</span></div>
+        <div class="p-4"><div class="session-meta"><span>Trainer</span><strong>@session.TrainerName</strong></div><div class="session-meta"><span>Date</span><strong>@session.DateDisplay</strong></div><div class="session-meta"><span>Time</span><strong>@session.TimeRangeDisplay</strong></div><div class="session-meta"><span>Duration</span><strong>@session.DurationDisplay</strong></div><div class="session-meta"><span>Capacity</span><strong>@session.BookedCount / @session.Capacity</strong></div>
+            <div class="d-flex flex-wrap gap-2 mt-4"><a asp-action="Details" asp-route-id="@session.Id" class="btn btn-outline-primary btn-sm flex-fill">View details</a>@if(session.Status == "Upcoming"){<a asp-action="Edit" asp-route-id="@session.Id" class="btn btn-outline-secondary btn-sm">Edit</a>}<a asp-action="Delete" asp-route-id="@session.Id" class="btn btn-outline-danger btn-sm">Delete</a></div>
+        </div>
+    </article></div>
+}
+@if(Model.Count == 0){<div class="col-12"><div class="empty-state"><h2>No sessions scheduled</h2><p>Add trainers first, then create your first session.</p><a asp-action="Create" class="btn btn-primary">Create session</a></div></div>}
+</div>
